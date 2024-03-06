@@ -1,0 +1,54 @@
+(declare-const xA1 Bool)
+(declare-const xA2 Bool)
+(declare-const xA3 Bool)
+(declare-const xB1 Bool)
+(declare-const xB2 Bool)
+(declare-const xB3 Bool)
+(declare-const xC1 Bool)
+(declare-const xC2 Bool)
+(declare-const xC3 Bool)
+
+;first constraint
+(assert (not (and xA1 xC2))) ; è come se queste righe fossero tutte in and 
+(assert (not (and xA2 xC1)))
+(assert (not (and xA2 xC3)))
+(assert (not (and xA3 xC2)))
+
+;second constraint
+(assert (not xA1))
+
+;third constraint
+(assert (not (and xB2 xC1)))
+(assert (not (and xB3 xC2)))
+(check-sat)
+(get-model) ;RICHIEDI SEMPRE IL MODELLO ;perchè ti darà come soluzion che tutto sia falso ma non è una soluzione che a noi va bene
+
+;dobbiamo dunque codificare un nuovo constraint-> a person should used at least one chair (ogni persona deve essere seduta su almeno una sedia)
+(assert (or xA1 xA2 xA3))
+(assert (or xB1 xB2 xB3))
+(assert (or xC1 xC2 xC3))
+(check-sat)
+(get-model) ; notimao che ci mancano aktri constraints 
+
+;at least one chair should be used 
+(assert (or xA1 xB1 xC1))
+(assert (or xA2 xB2 xC2))
+(assert (or xA3 xB3 xC3))
+(check-sat)
+(get-model) 
+
+
+;at most one chair should be used  (una persona non può sedersi su più sedie)
+(assert (=> xA1 (and (not xA2) (not xA3))))
+(assert (=> xA2 (and (not xA1) (not xA3))))
+(assert (=> xA3 (and (not xA2) (not xA1))))
+
+(assert (=> xB1 (and (not xB2) (not xB3))))
+(assert (=> xB2 (and (not xB1) (not xB3))))
+(assert (=> xB3 (and (not xB2) (not xB1))))
+
+(assert (=> xC1 (and (not xC2) (not xC3))))
+(assert (=> xC2 (and (not xC1) (not xC3))))
+(assert (=> xC3 (and (not xC2) (not xC1))))
+
+(exit)

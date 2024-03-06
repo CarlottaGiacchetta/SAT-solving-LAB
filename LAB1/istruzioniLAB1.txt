@@ -1,0 +1,6 @@
+LAB1.1 -> esempio SAT problem
+LAB1.2 -> dichiarazione varibaili e funzioni
+LAB1.3 -> definizione di formule e sat 
+LAB1.4 -> Exercise 1.2: scrivere i due circuiti e vedere se sono euqivalenti (se osno equivalenti hanno lo stesso output) 
+LAB1.5 -> esercizio sulle sedie
+LAB1.6 -> Exercise 1.4: numeri nelle caselle

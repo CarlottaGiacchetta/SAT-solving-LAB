@@ -1,0 +1,8 @@
+(declare-const x1 Bool) ;sono equivalenti 
+(declare-fun x1() Bool) ;sono equivalenti 
+
+
+(declare-const x2 Bool)
+(declare-const x3 Bool)
+
+(declare-fun f1  ((x1 Int) (x2 Int)) Bool)

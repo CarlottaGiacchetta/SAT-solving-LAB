@@ -1,0 +1,39 @@
+;first circuit
+(declare-const A Bool)
+(declare-const B Bool)
+(declare-const X1 Bool)
+(declare-const X2 Bool)
+(declare-const X3 Bool)
+(declare-const X4 Bool)
+(declare-const O1 Bool) ;output1
+
+
+;second circuit
+(declare-const Y1 Bool)
+(declare-const O2 Bool) ;output2
+
+
+;first circuit encoding
+(assert (=X1 (and A B)))
+(assert (=X2 (or B C)))
+(assert (=X3 (and B C)))
+(assert (=X4 (and X2 X3)))
+(assert (=O1 (or X1 X2)))
+
+
+;second circuit encoding
+(assert (=Y1 (or A C)))
+(assert (=O2 (and B Y1)))
+
+;are there models equivalent? 
+(assert (= O1 O2))
+(check-sat)
+(exit)
+
+;Questa soluzione è corretta ma un po' inefficiente. 
+;Si potrebbe migliorare andando a vedere se non sono equivalenti (fare UNSAT è più veloce che fare una SAT)
+;first circuit
+
+(assert (not(= O1 O2)))
+(check-sat)
+(exit)
