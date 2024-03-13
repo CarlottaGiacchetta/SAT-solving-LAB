@@ -29,7 +29,13 @@ for k in range(1, 10):
 		print(i)
 		for j in range(1,10,3):
 			print(j)
-			#msat.add_assertion(ExsactlyOne([vars["x{}{}{}".format(k,i,j)] for k in range(1,10)]))
+			msat.add_assertion(ExactlyOne([vars["x{}{}{}".format(i,j,k)],
+								  vars["x{}{}{}".format(i+1,j,k)],
+								   vars["x{}{}{}".format(i+2,j,k)],
+									vars["x{}{}{}".format(i+3,j,k)],
+									 vars["x{}{}{}".format(i,j+1,k)],
+									  vars["x{}{}{}".format(i,j+2,k)],
+									   vars["x{}{}{}".format(i,j+3,k)] ]))
 
 for i in range(0,9):
 	for j in range(0,9):
