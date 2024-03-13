@@ -1,0 +1,11 @@
+su py.smt esiste una funzione che ti permette di creare in automatico alcune hidden condition
+    - ExactlyOne(x1, x2, x3, x4, x5) 
+
+    ex: for each day, only one role interview exist
+    for i in range(0,4):
+        msat.add_assertation(ExactlyOne([var["dr{}{}".format(i,j)]]))
+
+quando chiede se è unico, bisogna negare TUTTO l'assigment trovato e poi runnare di nuovo il codice. Se unsat allora la soluzione è unica
+
+
+quando usi il solver usa solver=z3
