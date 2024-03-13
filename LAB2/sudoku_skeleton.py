@@ -2,6 +2,7 @@ from pysmt.shortcuts import *
 
 # Number k is in position (i,j) -> xijk
 msat = Solver(name="z3")
+diagonal = True
 
 vars = {"x{}{}{}".format(i,j,k): Symbol("x{}{}{}".format(i,j,k), BOOL) for i in range(1,10) for j in range(1,10) for k in range(1,10)}
 sudoku_map = [	[0,0,0,9,0,0,1,0,0], 
@@ -13,6 +14,17 @@ sudoku_map = [	[0,0,0,9,0,0,1,0,0],
 				[0,0,5,0,2,7,0,0,0], 
 				[0,4,9,0,0,0,8,0,0],
 				[7,0,0,1,0,0,0,2,0]]
+
+if diagonal == True:
+	sudoku_map = [	[0,0,5,0,0,0,1,0,0], 
+				[0,0,0,4,9,2,0,0,0], 
+				[9,0,0,0,0,0,0,0,3], 
+				[0,3,0,0,0,0,0,6,0], 
+				[0,9,0,0,0,0,0,1,0], 
+				[0,2,0,0,0,0,0,7,0], 
+				[1,0,0,0,0,0,0,0,8], 
+				[0,0,0,6,8,7,0,0,0],
+				[0,0,3,0,0,0,4,0,0]]
 
 
 for k in range(1, 10):
@@ -28,6 +40,11 @@ for k in range(1, 10):
 	for i in range(1,10,3):
 		for j in range(1,10,3):
 			msat.add_assertion(ExactlyOne([vars["x{}{}{}".format(ii,jj,k)] for ii in range(i,i+3) for jj in range(j,j+3)]))
+	
+	if diagonal == True:
+		msat.add_assertion(ExactlyOne([vars["x{}{}{}".format(i,i,k)] for i in range(1,10)]))
+		msat.add_assertion(ExactlyOne([vars["x{}{}{}".format(i,10-i,k)] for i in range(1,10)]))
+
 
 for i in range(0,9):
 	for j in range(0,9):
@@ -37,6 +54,8 @@ for i in range(0,9):
 		else:
 			# For each cell, we can have a single digit
 			msat.add_assertion(ExactlyOne([vars["x{}{}{}".format(i+1,j+1,k)] for k in range(1,10)]))
+
+
 
 
 res = msat.solve()
