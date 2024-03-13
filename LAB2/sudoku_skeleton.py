@@ -26,25 +26,17 @@ for k in range(1, 10):
 
 	# For each 3x3 subgrid, the digit appear once
 	for i in range(1,10,3):
-		print(i)
 		for j in range(1,10,3):
-			print(j)
-			msat.add_assertion(ExactlyOne([vars["x{}{}{}".format(i,j,k)],
-								  vars["x{}{}{}".format(i+1,j,k)],
-								   vars["x{}{}{}".format(i+2,j,k)],
-									vars["x{}{}{}".format(i+3,j,k)],
-									 vars["x{}{}{}".format(i,j+1,k)],
-									  vars["x{}{}{}".format(i,j+2,k)],
-									   vars["x{}{}{}".format(i,j+3,k)] ]))
+			msat.add_assertion(ExactlyOne([vars["x{}{}{}".format(ii,jj,k)] for ii in range(i,i+3) for jj in range(j,j+3)]))
 
 for i in range(0,9):
 	for j in range(0,9):
 		# If cell x[i,j] is not 0, it means it is already filled, so...
 		if sudoku_map[i][j] != 0:
-			msat.add_assertion("TODO")
+			msat.add_assertion(vars["x{}{}{}".format(i+1,j+1,sudoku_map[i][j])])
 		else:
 			# For each cell, we can have a single digit
-			msat.add_assertion("TODO")
+			msat.add_assertion(ExactlyOne([vars["x{}{}{}".format(i+1,j+1,k)] for k in range(1,10)]))
 
 
 res = msat.solve()
