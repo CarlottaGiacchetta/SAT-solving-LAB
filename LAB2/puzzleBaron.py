@@ -35,10 +35,15 @@ serie_sport = []
 serie_capacity = []
 
 for sport in 'bfrs':
-  serie_di_and.append(And(var['sa{}l'.format(sport)], [var['sc{}{}'.format(capacity)] for capacity in [110,150,190,230,270]]))
+  serie_di_and.append(And(var['sa{}l'.format(sport)], *[var['sc{}{}'.format(sport, capacity)] for capacity in [110,150,190,230,270]]))
+
+print(*serie_di_and)
+exit()
+
 
 for capacity in [110,150,190,230,270]:
-  
+  if capacity > ciao:
+    saij
 
 
 
