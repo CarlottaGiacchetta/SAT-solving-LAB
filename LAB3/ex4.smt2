@@ -1,4 +1,5 @@
 (set-option :produce-models true)
+;balance puzzle
 
 ;variabile z,w,i con pesi incogniti
 (declare-const z Int)
