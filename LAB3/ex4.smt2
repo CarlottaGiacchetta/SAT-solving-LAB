@@ -19,8 +19,8 @@
 (assert  (<= w 9))
 (assert  (>= i 1))
 (assert  (<= i 9))
-(assert  (>= p5 3))
-(assert  (<= p5 9))
+(assert  (or (= p5 1) (= p5 2) (= p5 3) (= p5 5)))
+
 
 
 ;assegniamo valori a p1,p2,p3,p4
@@ -30,12 +30,18 @@
 (assert (= p4 5))
 
 ;bilanciamneto
-assert (= 0 (- (+ z z p2) (+ w i i)) );prima bilancia 
-assert (= (+ w p1) (+ i p1 z i));seocnda bilancia 
-assert (= (+ i p4 z) (+ w w));terza bilancia 
-assert (= (+ w i z) (+ p2 p5));quarta bilancia
+(assert (= (+ z z p2) (+ w i i)));prima bilancia 
+(assert (= (+ w p1) (+ i p1 z i)));seocnda bilancia 
+(assert (= (+ i p4 z) (+ w w)));terza bilancia 
+(assert (= (+ w i z) (+ p2 p5)));quarta bilancia
 
+
+(check-sat)
+(get-model)
+
+;valore diverso per le varie lettere
 (assert (distinct z w i) )
+
 (check-sat)
 (get-model)
 (exit)
