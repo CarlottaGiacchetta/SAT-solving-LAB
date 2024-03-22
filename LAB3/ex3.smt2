@@ -3,7 +3,7 @@
 ;cba are multiples of 4.
 (set-option :produce-models true)
 
-;variabile x al tempo 1, posizione 1
+;numeri abc, CbA 
 (declare-const a Int)
 (declare-const A Int)
 (declare-const b Int)
