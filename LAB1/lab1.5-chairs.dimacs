@@ -51,4 +51,6 @@
 (assert (=> xC2 (and (not xC1) (not xC3))))
 (assert (=> xC3 (and (not xC2) (not xC1))))
 
+(check-sat)
+(get-model)
 (exit)

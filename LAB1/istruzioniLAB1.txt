@@ -5,3 +5,6 @@ LAB1.4 -> Exercise 1.2: scrivere i due circuiti e vedere se sono euqivalenti (se
 LAB1.5 -> esercizio sulle sedie
 LAB1.6 -> Exercise 1.4: numeri nelle caselle
 homework1.3 -> stuendts ar 
+
+
+

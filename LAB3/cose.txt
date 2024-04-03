@@ -2,3 +2,6 @@ i bit vector hanno bv davanti a tutt ele operaizoni (bvadd, bvsub, bvmul...)
 se vuoi selezionare un elemento dell'array bisgna fare (select "nome array" "numero elemento")
 se vuoi aggiungere un elemento all'array (store "nome array" "elemento che vuoi storare")
 Si può chiedere valori del modello per delle costanti (get-value (x,z))
+
+
+

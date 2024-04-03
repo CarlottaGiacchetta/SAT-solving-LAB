@@ -9,3 +9,5 @@ quando chiede se è unico, bisogna negare TUTTO l'assigment trovato e poi runnar
 
 
 quando usi il solver usa solver=z3
+
+

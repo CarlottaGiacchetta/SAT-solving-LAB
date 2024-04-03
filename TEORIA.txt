@@ -1,0 +1,60 @@
+DIMACS: 
+c: comments
+prima riga (di non commento) è il problema e inizia con "p", la prima parola è il probelm type (ex CNF), il primo numero è il numero di variabili (16) e il secondo l numero di clauses (18)
+ESEMPIO: p cnf 16 18
+tutto le righe dopo sono le clauses (il numero mi indica la variabile) e l'ultimo numero è 0
+ESEMPIO: 1 2 0 (vuol dire x1 or x2) 
+ESEMPIO: -8 3 -9 0 (not x8 or x3 or not x9)
+passi il problema al solver e ti ritorna SAT o UNSAT
+
+
+STM-LIB:
+è formata da 4 sezioni:
+1) option
+- generazione di modelli: (set-option :produce-models true)
+- estrazione di UNSAT core: (set-option :produce-unsat-cores true)
+- estrazioni di interpolanti (set-option :produce-interpolants true)
+- set background logic per computazioni più efficienti (set-logic <logic>)
+2) declaration
+DICHIARAZIONE DI UNA COSTANTE:
+(declare-const <name> <type>)
+i type possibili sono: Bool Int Real (_BitVec <size>) (Array <type> <type>)
+DICHIARAZIONE DI UNA FUNZIONE:
+(declare-fun <name> ( (input1 <type1>) (input2 <type2) ...) <optput_type>)
+3) assertion
+(assert <condition>)
+LOGICA PROPOSIZIONALE
+- negation: (not <var>)
+- or: (or <var1> <var2>)
+- and: (and <var1> <var2>)
+- if: (=> <var1> <var2>)
+- xor: (xor <var1> <var2>)
+- iff: (= <var1> <var2>)
+ARITMETICA
+- addizione: +
+- sottrazione: - 
+- moltiplicazione *
+- divisione: / (per reali), div (per interi)
+- resto: mod (solo per interi)
+- relazioni tra variabili: >, <, >=, <=, =
+BIT VECTORS (array di bit che rappresenta numeri - numeri in binario)
+- addizione: bvadd 
+- sottrazione: bvsub
+- moltiplicazione: bvmul 
+- divisione: bvudiv o bvsdiv (con segno)
+- resto: bvurem o bvsrem (con segno)
+- relazioni tra variabili: bvugt (grather than), bvult, bvuge, bvule
+- cambiare un numero in bitvector: (_ bv2 32) -> cambia numero 2 in bit vectore di size 32 bit
+- cambiare un numero negativo in bitvector: (_ to_bv3) (-2)
+ARRAY
+- (select a i): selezione l'lemento i-esimo dell' array a 
+- (store a i em): update dell'elemento i-esimo dell'array a l'emento em 
+PSEUDOBOOLEAN: mappi i booleani in interi 0-1 e quindi poi sommi, in modo conti quanti 1(Falsi/Veri) ci sono
+In questo modo puoi implementare le funzioni ExaclyFour() in modo efficiente
+4) action
+(check-sat)
+(get-model)
+(get-value (const1)): puoi chiedere al modello anche il valore di sole alcune costanti
+(exit)
+
+
