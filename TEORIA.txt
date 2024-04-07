@@ -57,4 +57,10 @@ In questo modo puoi implementare le funzioni ExaclyFour() in modo efficiente
 (get-value (const1)): puoi chiedere al modello anche il valore di sole alcune costanti
 (exit)
 
+OPTIMATHSAT: 
+COSE IMPORTANTI:
+- serve per ottimizzare (può esere usato anche per funzioni multiobbiettivo)
+- quando runnni sul terminale ricordati di mettere -optimization=true -model_generation=true
 
+FUNZIONI UTILI
+(assert (distinct z w i) ): assegna valori diversi alla variabili z,w,i
