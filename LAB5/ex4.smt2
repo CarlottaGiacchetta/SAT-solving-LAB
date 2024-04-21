@@ -61,7 +61,7 @@
 (assert (and (>= x5y5 0) (<= x5y5 4)))
 
 
-(define-fun ExactlyOne-borde ((x Int) (y1 Int) (y2 Int)) (=1 (+ (ite (= x y1) 1 0) (ite (= x y2) 1 0))))
+(define-fun ExactlyOne-borde ((x Int) (y1 Int) (y2 Int)) (= 1 (+ (ite (= x y1) 1 0) (ite (= x y2) 1 0))))
 (define-fun ExactlyOne-borde ((x Int) (y1 Int) (y2 Int) (y3 Int)) (=1 (+ (ite (= x y1) 1 0) (ite (= x y2) 1 0))) )
 (define-fun ExactlyOne-borde ((x Int) (y1 Int) (y2 Int) (y3 Int) (y4 Int)) (=1 (+ (ite (= x y1) 1 0) (ite (= x y2) 1 0))))
 
