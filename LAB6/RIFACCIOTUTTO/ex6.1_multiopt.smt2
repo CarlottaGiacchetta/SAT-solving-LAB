@@ -16,8 +16,11 @@
 (declare-const time Int)
 (declare-const cost Int)
 
+(assert (> traditionalMedia 0))
+(assert (> personalappearence 0))
+
 (assert (= customer (+ (* 2 traditionalMedia) (* 2 personalappearence))))
-(assert (= positiveRatings (+ traditionalMedia (5 * personalappearence))))
+(assert (= positiveRatings (+ traditionalMedia (* 5 personalappearence))))
 (assert (>= customer 16))
 (assert (>= positiveRatings 28))
 
