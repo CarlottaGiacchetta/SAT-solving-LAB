@@ -1,3 +1,10 @@
+;Use MathSAT to solve the puzzle
+;shown in the figure. The rules are
+;simple: you must connect dots
+;with the same color with a single
+;line and all cells must be used to
+;generate a valid solution.
+
 (set-option :produce-models true)
 
 (declare-const x11 Int)
@@ -30,16 +37,19 @@
 (declare-const x54 Int)
 (declare-const x55 Int)
 
-(define-fun ExactlyOne-corner ((n Int) (x1 Int) (x2 Int)) Bool (= 1 (+ (ite (= n x1) 1 0) (ite (= n x2) 1 0))))
-(define-fun ExactlyOne-border ((n Int) (x1 Int) (x2 Int) (x3 Int)) Bool (= 1 (+ (ite (= n x1) 1 0) (ite (= n x2) 1 0) (ite (= n x3) 1 0)) ))
-(define-fun ExactlyOne-middle ((n Int) (x1 Int) (x2 Int) (x3 Int) (x4 Int)) Bool (= 1 (+ (ite (= n x1) 1 0) (ite (= n x2) 1 0) (ite (= n x3) 1 0) (ite (= n x4) 1 0))))
 
-(define-fun ExactlyTwo-corner ((n Int) (x1 Int) (x2 Int)) Bool (= 2 (+ (ite (= n x1) 1 0) (ite (= n x2) 1 0))))
-(define-fun ExactlyTwo-border ((n Int) (x1 Int) (x2 Int) (x3 Int)) Bool (= 2 (+ (ite (= n x1) 1 0) (ite (= n x2) 1 0) (ite (= n x3) 1 0)) ))
-(define-fun ExactlyTwo-middle ((n Int) (x1 Int) (x2 Int) (x3 Int) (x4 Int)) Bool (= 2 (+ (ite (= n x1) 1 0) (ite (= n x2) 1 0) (ite (= n x3) 1 0) (ite (= n x4) 1 0))))
+(assert (= 1 x11))
+(assert (= 1 x54))
 
-(assert (and (>= x11 0) (<= x11 4)))
-(assert (and (>= x12 0) (<= x12 4)))
+(assert (= 2 x12))
+(assert (= 2 x33))
+
+(assert (= 3 x24))
+(assert (= 3 x32))
+
+(assert (= 4 x42))
+(assert (= 4 x55))
+
 (assert (and (>= x13 0) (<= x13 4)))
 (assert (and (>= x14 0) (<= x14 4)))
 (assert (and (>= x15 0) (<= x15 4)))
@@ -47,17 +57,13 @@
 (assert (and (>= x21 0) (<= x21 4)))
 (assert (and (>= x22 0) (<= x22 4)))
 (assert (and (>= x23 0) (<= x23 4)))
-(assert (and (>= x24 0) (<= x24 4)))
 (assert (and (>= x25 0) (<= x25 4)))
 
 (assert (and (>= x31 0) (<= x31 4)))
-(assert (and (>= x32 0) (<= x32 4)))
-(assert (and (>= x33 0) (<= x33 4)))
 (assert (and (>= x34 0) (<= x34 4)))
 (assert (and (>= x35 0) (<= x35 4)))
 
 (assert (and (>= x41 0) (<= x41 4)))
-(assert (and (>= x42 0) (<= x42 4)))
 (assert (and (>= x43 0) (<= x43 4)))
 (assert (and (>= x44 0) (<= x44 4)))
 (assert (and (>= x45 0) (<= x45 4)))
@@ -65,18 +71,19 @@
 (assert (and (>= x51 0) (<= x51 4)))
 (assert (and (>= x52 0) (<= x52 4)))
 (assert (and (>= x53 0) (<= x53 4)))
-(assert (and (>= x54 0) (<= x54 4)))
-(assert (and (>= x55 0) (<= x55 4)))
 
-(assert (= x11 1))
-(assert (= x12 2))
-(assert (= x24 3))
-(assert (= x32 3))
-(assert (= x33 2))
-(assert (= x42 4))
-(assert (= x54 1))
-(assert (= x55 4))
 
+;definisco le funzioni utili 
+;quelli cdi cui so già il colore devono avere solo un vicino colorato perchè è lo starting7end point
+(define-fun ExactlyOne-corner ((n Int) (x1 Int) (x2 Int)) Bool (= 1 (+ (ite (= n x1) 1 0) (ite (= n x2) 1 0))))
+(define-fun ExactlyOne-border ((n Int) (x1 Int) (x2 Int) (x3 Int)) Bool (= 1 (+ (ite (= n x1) 1 0) (ite (= n x2) 1 0) (ite (= n x3) 1 0)) ))
+(define-fun ExactlyOne-middle ((n Int) (x1 Int) (x2 Int) (x3 Int) (x4 Int)) Bool (= 1 (+ (ite (= n x1) 1 0) (ite (= n x2) 1 0) (ite (= n x3) 1 0) (ite (= n x4) 1 0))))
+;quelli cdi cui sonon so il colore devono avere due vicini dello stesso colore perchè il path deve andare avanti
+(define-fun ExactlyTwo-corner ((n Int) (x1 Int) (x2 Int)) Bool (= 2 (+ (ite (= n x1) 1 0) (ite (= n x2) 1 0))))
+(define-fun ExactlyTwo-border ((n Int) (x1 Int) (x2 Int) (x3 Int)) Bool (= 2 (+ (ite (= n x1) 1 0) (ite (= n x2) 1 0) (ite (= n x3) 1 0)) ))
+(define-fun ExactlyTwo-middle ((n Int) (x1 Int) (x2 Int) (x3 Int) (x4 Int)) Bool (= 2 (+ (ite (= n x1) 1 0) (ite (= n x2) 1 0) (ite (= n x3) 1 0) (ite (= n x4) 1 0))))
+
+;prima ragiono su tutti i punti che hanno già un colore 
 (assert (ExactlyOne-corner x11 x12 x21))
 (assert (ExactlyOne-border x12 x11 x13 x22))
 (assert (ExactlyOne-border x54 x53 x55 x44))
@@ -86,6 +93,7 @@
 (assert (ExactlyOne-middle x33 x34 x32 x23 x43))
 (assert (ExactlyOne-middle x42 x41 x43 x32 x52))
 
+;tutti i punti della griglia a cui manca un colore 
 (assert (ExactlyTwo-corner x15 x14 x25))
 (assert (ExactlyTwo-corner x51 x41 x52))
 
